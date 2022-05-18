@@ -9,4 +9,22 @@ app.use(express.json());
 app.use("/", router);
 app.listen(5000, () => console.log("Server Running"));
 
+// Wrapper used due to async..await not allowed in global scope
+async function main() {
 
+    // Generate test account from ethereal.email
+    let testAccount = await nodemailer.createTestAccount();
+
+    // Create Transporter object
+    let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+            user: testAccount.user,
+            pass: testAccount.pass,
+        },
+    });
+
+    
+}
