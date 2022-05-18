@@ -26,7 +26,7 @@ async function main() {
         },
     });
 
-
+    // Verify if email exists
     contactEmail.verify((error) => {
         if (error) {
             console.log(error);
@@ -35,7 +35,22 @@ async function main() {
         }
     });
 
-    
+
+    router.post("/contact", (req, res) => {
+        const name = req.body.name;
+        const email = req.body.email;
+        const subject = req.body.subject;
+        const message = req.body.message;
+
+        const mail = {
+            from: name,
+            to: testAccount.user,
+            subject: subject,
+            html: `<p>Name: ${name}</p>
+                   <p>Email: ${email}</p>
+                   <p>Message: ${message}</p>`
+        };
+    })
 
 }
 
