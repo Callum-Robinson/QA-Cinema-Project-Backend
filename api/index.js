@@ -50,7 +50,15 @@ async function main() {
                    <p>Email: ${email}</p>
                    <p>Message: ${message}</p>`
         };
-    })
+
+    contactEmail.sendMail(mail, (error) => {
+        if (error) {
+            res.json({ status: "Error"});
+        } else {
+            res.json({ status: "Message Sent"});
+        }
+        });
+    });
 
 }
 
