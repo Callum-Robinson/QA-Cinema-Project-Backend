@@ -16,7 +16,7 @@ async function main() {
     let testAccount = await nodemailer.createTestAccount();
 
     // Create Transporter object
-    let transporter = nodemailer.createTransport({
+    let contactEmail = nodemailer.createTransport({
         host: "smtp.ethereal.email",
         port: 587,
         secure: false,
@@ -26,5 +26,17 @@ async function main() {
         },
     });
 
+
+    contactEmail.verify((error) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Ready to Send");
+        }
+    });
+
     
+
 }
+
+main().catch(console.error);
