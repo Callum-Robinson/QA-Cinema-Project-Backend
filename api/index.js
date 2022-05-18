@@ -36,29 +36,26 @@ async function main() {
     });
 
 
-    router.post("/contact", (req, res) => {
+    router.post("/contactus", async (req, res) => {
         const name = req.body.name;
         const email = req.body.email;
         const subject = req.body.subject;
         const message = req.body.message;
 
-        const mail = {
-            from: name,
-            to: testAccount.user,
-            subject: subject,
-            html: `<p>Name: ${name}</p>
-                   <p>Email: ${email}</p>
-                   <p>Message: ${message}</p>`
-        };
 
-    contactEmail.sendMail(mail, (error) => {
-        if (error) {
-            res.json({ status: "Error"});
-        } else {
-            res.json({ status: "Message Sent"});
-        }
-        });
+    let info = await contactEmail.sendMail({
+        from: email,
+        to: "bar@example.com",
+        subject: subject,
+        html: `<p>Name: ${name}</p>
+                <p>Email: ${email}</p>
+                <p>Message: ${message}</p>`
     });
+
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    });
+
 
 }
 
