@@ -51,13 +51,13 @@ async function main() {
                     <p>Email: ${email}</p>
                     <p>Message: ${message}</p>`
         });
-        res.status(201).json({status: "Message sent"});
+        res.json({status: "Message Sent"});
 
         console.log("Message sent: %s", info.messageId);
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        
+
     } catch (error) {
-        next(error);
+        res.json({status: "Error"});
     }
 
     
