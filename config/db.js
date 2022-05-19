@@ -13,9 +13,11 @@ const paymentSchema = new Schema({
 const Payment = model(`Payment`, paymentSchema);
 
 const commentSchema = new Schema({
+
     name: { type: String, required: true },
     comment: { type: String, required: true },
     datePosted: { type: Date, default: Date.now }
+
 });
 const Comment = model(`Comment`, commentSchema);
 
@@ -30,5 +32,17 @@ const BookingSchema = new Schema({
     deluxe : {type: String, required: true},
     totalCost : {type: String, required: true}
 
-})
+});
 const Booking = model('Booking', BookingSchema);
+
+const discussionSchema = new Schema({
+
+    name: { type: String, required: true },
+    movie: { type: String },
+    topic: { type: String },
+    discussion: { type: String },
+    rating: { type: Number, min: 1, max: 10 }
+
+});
+
+const Discuss = model('Discuss', discussionSchema);
