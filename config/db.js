@@ -46,3 +46,10 @@ const discussionSchema = new Schema({
 });
 
 const Discuss = model('Discuss', discussionSchema);
+
+module.exports = {
+    "Payment": Payment,
+    "Booking": Booking,
+    "Discuss": Discuss,
+    "Comment": Comment
+}
