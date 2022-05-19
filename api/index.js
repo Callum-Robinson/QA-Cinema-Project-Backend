@@ -7,7 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
 
 // Wrapper used due to async..await not allowed in global scope
 async function main() {
@@ -67,3 +66,5 @@ async function main() {
 }
 
 main().catch(console.error);
+
+app.listen(5000, () => console.log("Server Running"));
