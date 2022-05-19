@@ -42,18 +42,25 @@ async function main() {
         const subject = req.body.subject;
         const message = req.body.message;
 
+    try {
+        let info = await contactEmail.sendMail({
+            from: email,
+            to: "bar@example.com",
+            subject: subject,
+            html: `<p>Name: ${name}</p>
+                    <p>Email: ${email}</p>
+                    <p>Message: ${message}</p>`
+        });
+        res.status(201).json({status: "Message sent"});
 
-    let info = await contactEmail.sendMail({
-        from: email,
-        to: "bar@example.com",
-        subject: subject,
-        html: `<p>Name: ${name}</p>
-                <p>Email: ${email}</p>
-                <p>Message: ${message}</p>`
-    });
+        console.log("Message sent: %s", info.messageId);
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        
+    } catch (error) {
+        next(error);
+    }
 
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    
     });
 
 
