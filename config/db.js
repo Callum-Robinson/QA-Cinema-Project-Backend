@@ -18,3 +18,17 @@ const commentSchema = new Schema({
     datePosted: { type: Date, default: Date.now }
 });
 const Comment = model(`Comment`, commentSchema);
+
+const BookingSchema = new Schema({
+
+    moviename: { type: String, required: true },
+    date: { type: String, required: true },
+    time: { type: String, required: true },
+    bookername: { type: String, required: true },
+    adultseats: { type: Number, required: true, min: 0 },
+    childseats: { type: Number, required: true, min: 0 },
+    deluxe : {type: String, required: true},
+    totalCost : {type: String, required: true}
+
+})
+const Booking = model('Booking', BookingSchema);
