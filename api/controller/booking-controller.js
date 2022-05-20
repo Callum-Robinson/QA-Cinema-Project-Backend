@@ -2,11 +2,11 @@ const Booking = require('../model/booking');
 
 module.exports = {
 
-    // READ ALL
-    getAllBookings: async (req, res, next) => {
-        const bookings = await Booking.find({});
-        res.status(200).json(bookings);
-    },
+    // // READ ALL
+    // getAllBookings: async (req, res, next) => {
+    //     const bookings = await Booking.find({});
+    //     res.status(200).json(bookings);
+    // },
 
     // READ BY ID
     getBookingById: async (req, res, next) => {
@@ -31,29 +31,29 @@ module.exports = {
         }
     },
 
-    // UPDATE
-    updateBooking: async (req, res, next) => {
-        const id = req.params.id;
-        const updates = req.body;
+    // // UPDATE
+    // updateBooking: async (req, res, next) => {
+    //     const id = req.params.id;
+    //     const updates = req.body;
 
-        const booking = await Booking.updateOne({ _id: id }, updates);
+    //     const booking = await Booking.updateOne({ _id: id }, updates);
 
-        if (booking) {
-            res.status(200).json(booking);
-            return;
-        }
-        next(new BookingNotFoundError(id));
-    },
+    //     if (booking) {
+    //         res.status(200).json(booking);
+    //         return;
+    //     }
+    //     next(new BookingNotFoundError(id));
+    // },
 
-    //DELETE
-    deleteBooking: async (req, res, next) => {
-        const filter = { _id: req.params.id };
+    // //DELETE
+    // deleteBooking: async (req, res, next) => {
+    //     const filter = { _id: req.params.id };
 
-        const booking = await Booking.findOneAndDelete(filter);
+    //     const booking = await Booking.findOneAndDelete(filter);
 
-        if (booking) {
-            return res.status(200).json(booking);
-        }
-        next(new BookingNotFoundError(id));
-    }
+    //     if (booking) {
+    //         return res.status(200).json(booking);
+    //     }
+    //     next(new BookingNotFoundError(id));
+    // }
 }
