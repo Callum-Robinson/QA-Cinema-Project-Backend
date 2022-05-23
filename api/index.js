@@ -71,9 +71,10 @@ async function main() {
     await nodemailerConfig.initTestAccount();
     await nodemailerConfig.initContactEmail();
     // start server on port 5000
-    app.listen(5000, () => console.log("Server Running"));
+    const server = app.listen(PORT, function() {
+        console.log(`Server up on ${PORT}`);
+    });
 }
 
 // Call the main function with an error catch
 main().catch(console.error);
-
