@@ -13,7 +13,6 @@ const ImageSchema = new Schema({
     }
 });
 
-Image = mongoose.model('Image', BookingSchema);
-Image = mongoose.model('Image', MovieSchema);
+Image = mongoose.model('Image', ImageSchema);
 
 module.exports = Image;
