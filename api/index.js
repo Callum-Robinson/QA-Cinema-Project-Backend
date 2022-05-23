@@ -62,6 +62,11 @@ async function main() {
     await mongoose.connect(DB_URI, { useNewUrlParser : true })
                   .then(() => console.log(`DB Connected: ${DB_URI}`));
 
+    const db = mongoose.connection;
+
+    db.on('error', console.error.bind(console, 'MongoDB connection error'));
+    db.on('connection', console.log.bind(console, 'MongoDB connected'));
+
     // setup test email account
     await nodemailerConfig.initTestAccount();
     await nodemailerConfig.initContactEmail();
