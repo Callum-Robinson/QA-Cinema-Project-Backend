@@ -1,5 +1,4 @@
 const express = require("express");
-const morgan = require('morgan');
 const cors = require("cors");
 const mongoose = require("mongoose");
 const contactRouter = require("./router/contact-router");
@@ -11,22 +10,12 @@ const BookingNotFoundError = require('./errors/booking-not-found-error');
 const movieRouter = require('./router/movie-router');
 const bookingRouter = require('./router/movie-router');
 
-const DB_URI = process.env.DB_URI || "mongodb://127.0.0.1:27017/qa-cinemas";
-const PORT = process.env.PORT || 3000;
+const DB_URI = "mongodb://127.0.0.1:27017/qa-cinemas";
+const PORT = 5000;
 const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Environment Config
-if (process.env.NODE_ENV === "PRODUCTION") {
-    console.log("=== PRODUCTION ===");
-    app.use(cors('combined'));
-} else {
-    console.log("=== DEVELOPMENT ===");
-    app.use(morgan('dev'));
-}
 
 // Built in middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use(express.static("public"));
