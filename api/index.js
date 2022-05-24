@@ -7,6 +7,7 @@ const HttpError = require('./errors/http-error');
 const MovieNotFoundError = require('./errors/movie-not-found-error');
 const BookingNotFoundError = require('./errors/booking-not-found-error');
 
+
 const movieRouter = require('./router/movie-router');
 const bookingRouter = require('./router/movie-router');
 
@@ -15,12 +16,20 @@ const PORT = 5000;
 const app = express();
 
 // Built in middleware
-app.use(cors());
+
+app.use(cors({
+    origin: ['http://127.0.0.1:3000', 'http://127.0.0.1:5500', 
+             'http://localhost:3000', 'http://localhost:5500'
+            ],
+    credentials: true // include cookies on cross-origin requests
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use(express.static("public"));
+app.use(cookieParser());
 
 // router middleware
+app.use(authenticationRouter);
 app.use("/contactus", contactRouter);
 app.use("/movie", movieRouter);
 app.use("/booking", bookingRouter);
