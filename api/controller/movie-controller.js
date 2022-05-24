@@ -1,6 +1,9 @@
 const MovieNotFoundError = require('../errors/movie-not-found-error.js');
 const Movie = require('../model/movie.js');
 
+const fs = require("fs");
+const path = require("path");
+
 module.exports = {
     
     // READ ALL
@@ -19,5 +22,28 @@ module.exports = {
             return;
         }
         next(new MovieNotFoundError(id));
+    },
+
+    addMovies: async (req, res, next) => {
+        const movie = {
+            title: req.body.title,
+            genre: req.body.genre,
+            description: req.body.description,
+            actors: req.body.actors,
+            directors: req.body.directors,
+            releaseYear: req.body.releaseYear,
+            runtime: req.body.runtime,
+            poster: {
+                data: fs.readFileSync(path.join(__dirname + req.file.filename)),
+                contentType: 'image/png'
+            }
+        }
+
+        try {
+            await movie.save();
+            res.status(200).json(movie);
+        } catch (error) {
+            next(error);
+        }
     }
 }

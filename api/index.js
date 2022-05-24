@@ -1,9 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const fs = require("fs");
-const path = require("path");
 
 const contactRouter = require("./router/contact-router");
 const nodemailerConfig = require("./nodemailer-config.js");
@@ -22,18 +19,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// Set up multer for storing files
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
-const upload = multer({ storage: storage });
 
 // router middleware
 app.use("/contactus", contactRouter);
