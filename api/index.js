@@ -38,9 +38,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// Models
-const movieModel = require('./model/movie');
-
 // router middleware
 app.use("/contactus", contactRouter);
 app.use("/movie", movieRouter);
