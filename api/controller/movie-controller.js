@@ -25,6 +25,10 @@ module.exports = {
     },
 
     addMovies: async (req, res, next) => {
+
+        const image = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename));
+        const encodedImage = image.toString("base64");
+
         const movie = {
             title: req.body.title,
             genre: req.body.genre,
@@ -34,8 +38,8 @@ module.exports = {
             releaseYear: req.body.releaseYear,
             runtime: req.body.runtime,
             poster: {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/png'
+                data: encodedImage, //Buffer.from(encodedImage, "base64"),
+                contentType: req.file.mimetype
             }
         }
 
@@ -43,8 +47,10 @@ module.exports = {
             if (err) {
                 console.log(err);
             } else {
-                item.save();
-                res.json(movie);
+                fs.unlinkSync(req.file.path);
+                //item.poster.data = item.poster.data.toString("base64");
+                //console.log(item.poster.data.toString("base64"));
+                res.json(item);
             }
         })
     }
