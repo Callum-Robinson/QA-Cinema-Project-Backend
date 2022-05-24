@@ -23,9 +23,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Set EJS as templating engine (recommendation of geeksforgeeks.org)
-app.set("view engine", "ejs");
-
 // Set up multer for storing files
 const multer = require('multer');
 const storage = multer.diskStorage({
