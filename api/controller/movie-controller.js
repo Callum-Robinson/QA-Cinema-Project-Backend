@@ -34,16 +34,18 @@ module.exports = {
             releaseYear: req.body.releaseYear,
             runtime: req.body.runtime,
             poster: {
-                data: fs.readFileSync(path.join(__dirname + req.file.filename)),
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
                 contentType: 'image/png'
             }
         }
 
-        try {
-            await movie.save();
-            res.status(200).json(movie);
-        } catch (error) {
-            next(error);
-        }
+        Movie.create(movie, (err, item) => {
+            if (err) {
+                console.log(err);
+            } else {
+                item.save();
+                res.json(movie);
+            }
+        })
     }
 }
