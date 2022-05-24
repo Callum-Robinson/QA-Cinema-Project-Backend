@@ -23,6 +23,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Set EJS as templating engine (recommendation of geeksforgeeks.org)
+app.set("view engine", "ejs");
 
 // router middleware
 app.use("/contactus", contactRouter);
