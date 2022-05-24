@@ -10,12 +10,10 @@ const movieSchema = new Schema ({
     releaseYear: Number,
     runtime: Number,
     poster: {
-        type: Schema.Types.ObjectId,
-        ref: 'Image'
+        data: Buffer,
+        contentType: String
     }
 
 });
 
-const Movie = mongoose.model('Movie', movieSchema)
-
-module.exports = Movie;
+module.exports = mongoose.model('Movie', movieSchema);
