@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+var fs = require("fs");
+var path = require("path");
+
 const contactRouter = require("./router/contact-router");
 const nodemailerConfig = require("./nodemailer-config.js");
 const HttpError = require('./errors/http-error');
@@ -48,7 +52,7 @@ app.use((error, request, response, next) => {
 // Wrapper used due to async..await not allowed in global scope
 async function main() {
     // connect to the database
-    await mongoose.connect(DB_URI, { useNewUrlParser : true })
+    await mongoose.connect(DB_URI, { useNewUrlParser : true, useUnifiedTopology: true })
                   .then(() => console.log(`DB Connected: ${DB_URI}`));
 
     const db = mongoose.connection;
