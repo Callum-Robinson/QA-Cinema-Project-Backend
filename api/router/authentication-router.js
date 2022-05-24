@@ -6,8 +6,8 @@
  const bcrypt = require('bcryptjs');
  const router = express.Router();
  const User = require('../model/user');
- const jwtUtils = require('../config/JwtUtils');
- const { authenticationMiddleware } = require('../config/JwtUtils');
+ const jwtUtils = require('./JwtUtils');
+ const { authenticationMiddleware } = require('./JwtUtils');
  const expiration = jwtUtils.JWT_TIMEOUT;
  
  /**
@@ -54,7 +54,7 @@
  
          // ensure to select the pw from the db for the comparison
          const user = await User.findOne({ username }).select('+password');
- 
+            console.log(user);
          if (user) {
              if (await bcrypt.compare(password, user.password)) {
                  user.password = undefined;
@@ -75,9 +75,9 @@
          return response.status(400).send("Invalid login details.");
  
      } catch (err) {
+         console.log(err);
          return next(err);
      }
  });
  
  module.exports = router;
- 
