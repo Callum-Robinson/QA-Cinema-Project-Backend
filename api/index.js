@@ -7,10 +7,12 @@ const HttpError = require('./errors/http-error');
 const MovieNotFoundError = require('./errors/movie-not-found-error');
 const BookingNotFoundError = require('./errors/booking-not-found-error');
 const ScreeningNotFoundError = require('./errors/screening-not-found-error');
+const UserNotFoundError = require('./errors/user-not-found-error');
 
 const movieRouter = require('./router/movie-router');
 const bookingRouter = require('./router/booking-router');
 const screeningRouter = require('./router/screening-router');
+const userRouter = require('./router/user-router');
 
 const DB_URI = "mongodb://127.0.0.1:27017/qa-cinemas";
 const PORT = 5000;
@@ -27,6 +29,7 @@ app.use("/contactus", contactRouter);
 app.use("/movie", movieRouter);
 app.use("/booking", bookingRouter);
 app.use("/screening", screeningRouter);
+app.use("/user", userRouter);
 
 // Error handling middleware
 app.use((error, request, response, next) => {
@@ -38,6 +41,8 @@ app.use((error, request, response, next) => {
         } else if (error instanceof BookingNotFoundError) {
             error = new HttpError(error, 404);
         } else if (error instanceof ScreeningNotFoundError) {
+            error = new HttpError(error, 404);
+        } else if (error instanceof UserNotFoundError) {
             error = new HttpError(error, 404);
         } else if (error.name === "ValidationError") {
             error = new HttpError(error, 404);
