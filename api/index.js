@@ -26,6 +26,20 @@ app.use(express.urlencoded({ extended: false }));
 // Set EJS as templating engine (recommendation of geeksforgeeks.org)
 app.set("view engine", "ejs");
 
+// Set up multer for storing files
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+var upload = multer({ storage: storage });
+
+
+
 // router middleware
 app.use("/contactus", contactRouter);
 app.use("/movie", movieRouter);
