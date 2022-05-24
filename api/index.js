@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-var fs = require("fs");
-var path = require("path");
+const fs = require("fs");
+const path = require("path");
 
 const contactRouter = require("./router/contact-router");
 const nodemailerConfig = require("./nodemailer-config.js");
@@ -27,8 +27,8 @@ app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
 // Set up multer for storing files
-var multer = require('multer');
-var storage = multer.diskStorage({
+const multer = require('multer');
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
     },
@@ -36,9 +36,10 @@ var storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now())
     }
 });
-var upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
-
+// Models
+const movieModel = require('./model/movie');
 
 // router middleware
 app.use("/contactus", contactRouter);
