@@ -2,13 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-const contactRouter = require("./router/contact-router");
 const nodemailerConfig = require("./nodemailer-config.js");
 const HttpError = require('./errors/http-error');
 const MovieNotFoundError = require('./errors/movie-not-found-error');
+const NewMovieNotFoundError = require('./errors/new-movie-not-found-error');
 const BookingNotFoundError = require('./errors/booking-not-found-error');
 
+const contactRouter = require("./router/contact-router");
 const movieRouter = require('./router/movie-router');
+const newReleaseRouter = require('./router/new-release-router');
 const bookingRouter = require('./router/booking-router');
 
 const DB_URI = "mongodb://127.0.0.1:27017/qa-cinemas";
@@ -23,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // router middleware
 app.use("/contactus", contactRouter);
 app.use("/movie", movieRouter);
+app.use("/newrelease", newReleaseRouter);
 app.use("/booking", bookingRouter);
 
 // Error handling middleware
@@ -31,6 +34,8 @@ app.use((error, request, response, next) => {
 
     if (!(error instanceof HttpError)) {
         if (error instanceof MovieNotFoundError) {
+            error = new HttpError(error, 404);
+        } else if (error instanceof NewMovieNotFoundError) {
             error = new HttpError(error, 404);
         } else if (error instanceof BookingNotFoundError) {
             error = new HttpError(error, 404);
