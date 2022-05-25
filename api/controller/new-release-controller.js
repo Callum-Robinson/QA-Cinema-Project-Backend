@@ -17,10 +17,40 @@ module.exports = {
         const id = req.params.id;
         const release = await NewRelease.findById(id);
 
-        if (movie) {
+        if (release) {
             res.status(200).json(release);
             return;
         }
         next(new NewMovieNotFoundError(id));
     },
+
+    // Post Movies
+    addMovies: async (req, res, next) => {
+
+        const image = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename));
+        const encodedImage = image.toString("base64");
+
+        const release = {
+            title: req.body.title,
+            genre: req.body.genre,
+            description: req.body.description,
+            actors: req.body.actors,
+            directors: req.body.directors,
+            releaseDate: req.body.releaseDate,
+            runtime: req.body.runtime,
+            poster: {
+                data: encodedImage,
+                contentType: req.file.mimetype
+            }
+        }
+
+        NewRelease.create(release, (err, item) => {
+            if (err) {
+                console.log(err);
+            } else {
+                fs.unlinkSync(req.file.path);
+                res.json(item);
+            }
+        })
+    }
 }
