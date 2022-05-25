@@ -24,6 +24,7 @@ module.exports = {
         next(new MovieNotFoundError(id));
     },
 
+    // Post Movies
     addMovies: async (req, res, next) => {
 
         const image = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename));
