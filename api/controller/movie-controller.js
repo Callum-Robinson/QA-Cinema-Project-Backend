@@ -39,7 +39,7 @@ module.exports = {
             releaseYear: req.body.releaseYear,
             runtime: req.body.runtime,
             poster: {
-                data: encodedImage, //Buffer.from(encodedImage, "base64"),
+                data: encodedImage,
                 contentType: req.file.mimetype
             }
         }
@@ -49,8 +49,6 @@ module.exports = {
                 console.log(err);
             } else {
                 fs.unlinkSync(req.file.path);
-                //item.poster.data = item.poster.data.toString("base64");
-                //console.log(item.poster.data.toString("base64"));
                 res.json(item);
             }
         })
