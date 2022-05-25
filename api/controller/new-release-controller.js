@@ -25,7 +25,7 @@ module.exports = {
     },
 
     // Post Movies
-    addMovies: async (req, res, next) => {
+    addNewRelease: async (req, res, next) => {
 
         const image = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename));
         const encodedImage = image.toString("base64");

@@ -14,3 +14,7 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });
+
+router.get('/', newReleaseController.getAllNewReleases);
+router.get('/:id', newReleaseController.getNewReleaseById);
+router.post('/', upload.single('poster'), newReleaseController.addNewRelease);
