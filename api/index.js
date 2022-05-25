@@ -18,7 +18,7 @@ const app = express();
 // Built in middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // router middleware
 app.use("/contactus", contactRouter);
