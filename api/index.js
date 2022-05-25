@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+
 const contactRouter = require("./router/contact-router");
 const nodemailerConfig = require("./nodemailer-config.js");
 const HttpError = require('./errors/http-error');
@@ -21,8 +22,7 @@ const app = express();
 // Built in middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended : true }));
-app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
 // router middleware
 app.use("/contactus", contactRouter);
@@ -60,7 +60,7 @@ app.use((error, request, response, next) => {
 // Wrapper used due to async..await not allowed in global scope
 async function main() {
     // connect to the database
-    await mongoose.connect(DB_URI, { useNewUrlParser : true })
+    await mongoose.connect(DB_URI, { useNewUrlParser : true, useUnifiedTopology: true })
                   .then(() => console.log(`DB Connected: ${DB_URI}`));
 
     const db = mongoose.connection;
