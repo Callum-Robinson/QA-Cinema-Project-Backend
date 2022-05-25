@@ -15,7 +15,7 @@ module.exports = {
     // READ
     getMovieById: async (req, res, next) => {
         const id = req.params.id;
-        const movie = await Movie.findById(id).populate('poster', 'image');
+        const movie = await Movie.findById(id);
 
         if (movie) {
             res.status(200).json(movie);
