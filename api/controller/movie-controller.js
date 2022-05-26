@@ -52,5 +52,20 @@ module.exports = {
                 res.json(item);
             }
         })
+    },
+
+    // Add screenings
+    addScreenings: async (req, res, next) => {
+        const timings = req.body;
+        const movie = await Movie.findById(req.params.movieId);
+
+        if (movie) {
+            movie.timings.push(timings);
+            await movie.save();
+
+            res.status(200).json(user);
+            return;
+        }
+        next(new MovieNotFoundError(id));
     }
 }
