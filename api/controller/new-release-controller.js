@@ -33,7 +33,6 @@ module.exports = {
         const release = {
             title: req.body.title,
             genre: req.body.genre,
-            classification: req.body.classification,
             description: req.body.description,
             actors: req.body.actors,
             directors: req.body.directors,
