@@ -33,6 +33,7 @@ module.exports = {
         const movie = {
             title: req.body.title,
             genre: req.body.genre,
+            classification: req.body.classification,
             description: req.body.description,
             actors: req.body.actors,
             directors: req.body.directors,
@@ -52,5 +53,33 @@ module.exports = {
                 res.json(item);
             }
         })
+    },
+
+    // Delete Movies
+    deleteMovies: async (req, res, next) => {
+        const id = req.params.id;
+        const movie = await Movie.findByIdAndDelete(id);
+
+        if (movie) {
+            return res.status(200).json(movie);
+        }
+        next(new MovieNotFoundError(id));
+    },
+
+    // Add Screenings
+    addScreeningsById: async (req, res, next) => {
+        const timings = req.body;
+        const id = req.params.id;
+        const movie = await Movie.findById(id);
+
+        if (movie) {
+            movie.timings.push(timings);
+            await movie.save();
+
+            res.status(200).json(timings);
+            return;
+        }
+        next(new MovieNotFoundError(id));
     }
+    
 }
