@@ -63,7 +63,7 @@ module.exports = {
             movie.timings.push(timings);
             await movie.save();
 
-            res.status(200).json(user);
+            res.status(200).json(timings);
             return;
         }
         next(new MovieNotFoundError(id));
