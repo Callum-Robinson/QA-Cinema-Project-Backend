@@ -3,15 +3,17 @@ const cors = require("cors");
 const authenticationRouter = require('./router/authentication-router')
 const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
-const contactRouter = require("./router/contact-router");
+
 const nodemailerConfig = require("./nodemailer-config.js");
 const HttpError = require('./errors/http-error');
 const MovieNotFoundError = require('./errors/movie-not-found-error');
+const NewMovieNotFoundError = require('./errors/new-movie-not-found-error');
 const BookingNotFoundError = require('./errors/booking-not-found-error');
 
-
+const contactRouter = require("./router/contact-router");
 const movieRouter = require('./router/movie-router');
-const bookingRouter = require('./router/movie-router');
+const newReleaseRouter = require('./router/new-release-router');
+const bookingRouter = require('./router/booking-router');
 
 const DB_URI = "mongodb://127.0.0.1:27017/qa-cinemas";
 const PORT = 5000;
@@ -26,14 +28,13 @@ app.use(cors({
     credentials: true // include cookies on cross-origin requests
 }));
 app.use(express.json());
-app.use(express.urlencoded({ extended : true }));
-app.use(express.static("public"));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 // router middleware
 app.use(authenticationRouter);
 app.use("/contactus", contactRouter);
 app.use("/movie", movieRouter);
+app.use("/newrelease", newReleaseRouter);
 app.use("/booking", bookingRouter);
 
 // Error handling middleware
@@ -42,6 +43,10 @@ app.use((error, request, response, next) => {
 
     if (!(error instanceof HttpError)) {
         if (error instanceof MovieNotFoundError) {
+            error = new HttpError(error, 404);
+        } else if (error instanceof NewMovieNotFoundError) {
+            error = new HttpError(error, 404);
+        } else if (error instanceof BookingNotFoundError) {
             error = new HttpError(error, 404);
         } else if (error.name === "ValidationError") {
             error = new HttpError(error, 404);
@@ -59,7 +64,7 @@ app.use((error, request, response, next) => {
 // Wrapper used due to async..await not allowed in global scope
 async function main() {
     // connect to the database
-    await mongoose.connect(DB_URI, { useNewUrlParser : true })
+    await mongoose.connect(DB_URI, { useNewUrlParser : true, useUnifiedTopology: true })
                   .then(() => console.log(`DB Connected: ${DB_URI}`));
 
     const db = mongoose.connection;

@@ -3,11 +3,11 @@ const Booking = require('../model/booking');
 
 module.exports = {
 
-    // // READ ALL
-    // getAllBookings: async (req, res, next) => {
-    //     const bookings = await Booking.find({});
-    //     res.status(200).json(bookings);
-    // },
+    // READ ALL
+    getAllBookings: async (req, res, next) => {
+        const bookings = await Booking.find({});
+        res.status(200).json(bookings);
+    },
 
     // READ BY ID
     getBookingById: async (req, res, next) => {
