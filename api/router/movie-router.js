@@ -17,6 +17,8 @@ const upload = multer({ storage: storage });
 
 router.get('/', movieController.getAllMovies);
 router.get('/:id', movieController.getMovieById);
+router.get('/search/:genre', movieController.getMovieByGenre);
 router.post('/', upload.single('poster'), movieController.addMovies);
+
 
 module.exports = router;

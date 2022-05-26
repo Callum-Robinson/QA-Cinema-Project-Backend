@@ -30,6 +30,7 @@ module.exports = {
                 console.log("Ready to Send");
             }
         });
+        // console.log(this.testAccount, this.contactEmail);
     }
     
 }

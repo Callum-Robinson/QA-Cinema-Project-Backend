@@ -52,5 +52,21 @@ module.exports = {
                 res.json(item);
             }
         })
+    },
+
+    getMovieByGenre: async (req, res, next) => {
+        const genre = req.params.genre;
+        const movies = await Movie.find({
+            "genre": genre
+        });
+        res.status(200).json(movies);
+    },
+
+    getMovieByTitle: async (req, res, next) => {
+        const title = req.params.title;
+        const movies = await Movie.find({
+            "title": title
+        });
+        res.status(200).json(movies);
     }
 }
