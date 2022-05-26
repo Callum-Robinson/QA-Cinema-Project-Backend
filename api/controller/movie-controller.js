@@ -54,10 +54,21 @@ module.exports = {
         })
     },
 
-    // Add screenings
+    // Delete Movies
+    deleteMovies: async (req, res, next) => {
+        const id = req.params.id;
+        const movie = await Movie.findByIdAndDelete(id);
+
+        if (movie) {
+            return res.status(200).json(movie);
+        }
+        next(new MovieNotFoundError(id));
+    },
+
+    // Add Screenings
     addScreeningsById: async (req, res, next) => {
         const timings = req.body;
-        const id = req.params.movieId;
+        const id = req.params.id;
         const movie = await Movie.findById(id);
 
         if (movie) {
