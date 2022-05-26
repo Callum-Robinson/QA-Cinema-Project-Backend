@@ -1,42 +1,42 @@
-const MovieNotFoundError = require('../errors/movie-not-found-error.js');
-const Movie = require('../model/movie.js');
+const NewMovieNotFoundError = require('../errors/new-movie-not-found-error.js');
+const NewRelease = require("../model/newMovie.js");
 
 const fs = require("fs");
 const path = require("path");
 
 module.exports = {
-    
-    // READ ALL
-    getAllMovies: async (req, res, next) => {
-        const movies = await Movie.find({});
-        res.status(200).json(movies);
+
+    // Read all
+    getAllNewReleases: async (req, res, next) => {
+        const releases = await NewRelease.find({});
+        res.status(200).json(releases);
     },
 
-    // READ
-    getMovieById: async (req, res, next) => {
+    // Read by id
+    getNewReleaseById: async (req, res, next) => {
         const id = req.params.id;
-        const movie = await Movie.findById(id);
+        const release = await NewRelease.findById(id);
 
-        if (movie) {
-            res.status(200).json(movie);
+        if (release) {
+            res.status(200).json(release);
             return;
         }
-        next(new MovieNotFoundError(id));
+        next(new NewMovieNotFoundError(id));
     },
 
     // Post Movies
-    addMovies: async (req, res, next) => {
+    addNewRelease: async (req, res, next) => {
 
         const image = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename));
         const encodedImage = image.toString("base64");
 
-        const movie = {
+        const release = {
             title: req.body.title,
             genre: req.body.genre,
             description: req.body.description,
             actors: req.body.actors,
             directors: req.body.directors,
-            releaseYear: req.body.releaseYear,
+            releaseDate: req.body.releaseDate,
             runtime: req.body.runtime,
             poster: {
                 data: encodedImage,
@@ -44,7 +44,7 @@ module.exports = {
             }
         }
 
-        Movie.create(movie, (err, item) => {
+        NewRelease.create(release, (err, item) => {
             if (err) {
                 console.log(err);
             } else {
