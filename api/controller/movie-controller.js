@@ -55,7 +55,7 @@ module.exports = {
     },
 
     // Add screenings
-    addScreenings: async (req, res, next) => {
+    addScreeningsById: async (req, res, next) => {
         const timings = req.body;
         const id = req.params.movieId;
         const movie = await Movie.findById(id);
@@ -69,4 +69,5 @@ module.exports = {
         }
         next(new MovieNotFoundError(id));
     }
+    
 }
