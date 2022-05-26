@@ -14,6 +14,7 @@ const timingsSchema = new Schema ({
 const movieSchema = new Schema ({
     title: String,
     genre: String,
+    classification: String,
     description: String,
     actors: String,
     directors: String,
