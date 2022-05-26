@@ -18,5 +18,6 @@ const upload = multer({ storage: storage });
 router.get('/', newReleaseController.getAllNewReleases);
 router.get('/:id', newReleaseController.getNewReleaseById);
 router.post('/', upload.single('poster'), newReleaseController.addNewRelease);
+router.delete('/:id', newReleaseController.deleteNewRelease);
 
 module.exports = router;

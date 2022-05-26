@@ -33,6 +33,7 @@ module.exports = {
         const release = {
             title: req.body.title,
             genre: req.body.genre,
+            classification: req.body.classification,
             description: req.body.description,
             actors: req.body.actors,
             directors: req.body.directors,
@@ -52,5 +53,16 @@ module.exports = {
                 res.json(item);
             }
         })
+    },
+
+    // Delete New Release
+    deleteNewRelease: async (req, res, next) => {
+        const id = req.params.id;
+        const release = await NewRelease.findByIdAndDelete(id);
+
+        if (release) {
+            return res.status(200).json(release);
+        }
+        next(new NewMovieNotFoundError(id));
     }
 }
