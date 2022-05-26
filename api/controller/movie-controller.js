@@ -57,7 +57,8 @@ module.exports = {
     // Add screenings
     addScreenings: async (req, res, next) => {
         const timings = req.body;
-        const movie = await Movie.findById(req.params.movieId);
+        const id = req.params.movieId;
+        const movie = await Movie.findById(id);
 
         if (movie) {
             movie.timings.push(timings);
