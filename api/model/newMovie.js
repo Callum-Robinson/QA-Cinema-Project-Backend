@@ -7,7 +7,7 @@ const newMovieSchema = new Schema ({
     description: String,
     actors: String,
     directors: String,
-    releaseDate: Date,
+    releaseDate: String,
     runtime: Number,
     poster: {
         data: String,
