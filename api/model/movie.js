@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const timingsSchema = new Schema ({
+    screeningDay: String,
+    screeningTimes: {
+        type: Array,
+        items: {
+            type: String
+        }
+    }
+})
+
 const movieSchema = new Schema ({
     title: String,
     genre: String,
@@ -12,7 +22,8 @@ const movieSchema = new Schema ({
     poster: {
         data: String,
         contentType: String
-    }
+    },
+    timings: [timingsSchema]
 
 });
 
