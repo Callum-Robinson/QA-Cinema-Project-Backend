@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
-    
 </head>
+
 <body>
     <div class="search-wrapper">
         <label for="search">Search Movies</label>
-        <input type="search" id="search" placeholder="search...">
+        <input type="search" id="search" placeholder="search..." data-search>
     </div>
+
     <template data-movie-template>
-        <div class="movie-cards">
+        <div class="movie-cards" data-movie-cards-container>
             <div class="card">
                 <div class="header" data-header></div>
                 <div class="body" data-body></div>
             </div>
         </div>
+
     </template>
 </body>
+
 </html>
