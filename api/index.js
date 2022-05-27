@@ -2,17 +2,22 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+// config file for using nodemailer
 const nodemailerConfig = require("./nodemailer-config.js");
+
+// error handling
 const HttpError = require('./errors/http-error');
 const MovieNotFoundError = require('./errors/movie-not-found-error');
 const NewMovieNotFoundError = require('./errors/new-movie-not-found-error');
 const BookingNotFoundError = require('./errors/booking-not-found-error');
 
+// routers
 const contactRouter = require("./router/contact-router");
 const movieRouter = require('./router/movie-router');
 const newReleaseRouter = require('./router/new-release-router');
 const bookingRouter = require('./router/booking-router');
 
+// app setup
 const DB_URI = "mongodb://127.0.0.1:27017/qa-cinemas";
 const PORT = 5000;
 const app = express();

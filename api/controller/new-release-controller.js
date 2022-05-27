@@ -6,13 +6,13 @@ const path = require("path");
 
 module.exports = {
 
-    // Read all
+    // Read all releases
     getAllNewReleases: async (req, res, next) => {
         const releases = await NewRelease.find({});
         res.status(200).json(releases);
     },
 
-    // Read by id
+    // Read release by id
     getNewReleaseById: async (req, res, next) => {
         const id = req.params.id;
         const release = await NewRelease.findById(id);

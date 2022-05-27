@@ -15,8 +15,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// new release route
 router.get('/', newReleaseController.getAllNewReleases);
 router.get('/:id', newReleaseController.getNewReleaseById);
+
+// add/delete releases to/from the database
 router.post('/', upload.single('poster'), newReleaseController.addNewRelease);
 router.delete('/:id', newReleaseController.deleteNewRelease);
 

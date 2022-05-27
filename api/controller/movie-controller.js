@@ -6,13 +6,13 @@ const path = require("path");
 
 module.exports = {
     
-    // READ ALL
+    // Read all Movies
     getAllMovies: async (req, res, next) => {
         const movies = await Movie.find({});
         res.status(200).json(movies);
     },
 
-    // READ
+    // Read move by id
     getMovieById: async (req, res, next) => {
         const id = req.params.id;
         const movie = await Movie.findById(id);
