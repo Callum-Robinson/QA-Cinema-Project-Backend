@@ -47,6 +47,32 @@ The console should look something like this:
 ![Screenshot](https://user-images.githubusercontent.com/100779521/170702776-073df47f-8e07-4d14-8fa7-32f659e007ab.PNG)
 
 
+
+## Adding movie and release entries
+
+Simply send a post request with the following url and body format:
+
+
+![Post-Movie](https://user-images.githubusercontent.com/100779521/170713949-2969fd30-b7c5-418d-88cf-9700463c4246.PNG)
+
+This can be done similarly for releases by changing the 'movie' to 'newrelease' in the url
+
+
+## Removing movie and release entries
+
+Simply send a delete request the following url and swapping 'movie-id-here' for the id of the movie you wish to delete:
+
+![delete](https://user-images.githubusercontent.com/100779521/170714680-17d7eea9-f32e-452c-939b-608456e56e75.PNG)
+
+
+## Adding a screening time to a movie
+
+Simply send a put request with the following url and body format (swapping 'movie-id-here' for the id of the movie you wish to update):
+
+![posttiming](https://user-images.githubusercontent.com/100779521/170715055-f3f84805-ed0b-4f2c-a41f-f42bb0daf4c2.PNG)
+
+
+
 ## Authors!
 
 
