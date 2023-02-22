@@ -11,6 +11,7 @@ emails (for the contact form).
 The front-end can be found here: https://github.com/Mohab-Khalifa/QA-Cinema-Project-FrontEnd
 
 The Jira planning board for this project can be found here: https://mohabk.atlassian.net/jira/software/projects/FPC/boards/7/roadmap
+(No longer available)
 
 
 
